@@ -1,0 +1,16 @@
+{% for entity in entities %}
+    <div class="entity">
+        <div class="symbol">
+        	<h2><a href="">{{ entity.name }}</a></h2>
+            {{ entity.symbol }}
+        </div>
+        
+        <p>{{ entity.documentType|linebreaksbr }}</p>
+        <p>{{ entity.CIK|linebreaksbr }}</p>
+        <p>{{ entity.amendmentFlat|linebreaksbr }}</p>
+        <p>{{ entity.documentFiscalPeriodEndDate|linebreaksbr }}</p>
+        <p>{{ entity.documentFiscalPeriodEndFocus|linebreaksbr }}</p>
+        <p>{{ entity.documentFiscalYearEndDate|linebreaksbr }}</p>
+
+    </div>
+{% endfor %}
