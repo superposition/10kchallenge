@@ -1,10 +1,9 @@
 {% for entity in entities %}
     <div class="entity">
         <div class="symbol">
-        	<h2><a href="/detail/{{ entity.symbol }}">{{ entity.symbol }}</a></h2>
+        	<h2><a href="/">{{ entity.symbol }}</a></h2>
         </div>
         
         <p>{{ entity.payload|linebreaksbr }}</p>
     </div>
 {% endfor %}
-

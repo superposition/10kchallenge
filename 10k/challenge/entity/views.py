@@ -52,8 +52,16 @@ def entity_list(request):
 	entities = Entity.objects.all()
 	return render(request, 'entity/entity_list.html', {'entities': entities})
 
+def entity_detail(request, sym):
+    print (request)
+    print (sym)
+    entities = Entity.objects.filter(symbol=sym)
+    return render(request, 'entity/entity_detail.html', {'entities': entities})
+
 def entity_query(request):
     ticker = ''
+    db = ''
+    reportUrl = ''
     if request.method == "POST":
 
         form = PostForm(request.POST)
@@ -65,14 +73,35 @@ def entity_query(request):
             tickerlist = [x.strip() for x in unfiltered_list.split(',')]
 
             for ticker in tickerlist:
+
                 load = getCikReport(ticker)
                 if (load[0] != 'F'):    
                     reportUrl = getFinancialReport(load[0], load[1])
                 print (reportUrl)
 
-            entities.published_date = timezone.now()
-            entities.save()
-            return redirect('/')
+                try:
+                    ## None of the spreadsheets are standardized?
+                    readfromweb = pd.ExcelFile(reportUrl)   
+                    data = pd.read_excel(readfromweb, 'Consolidated Statements of Cash')
+                    datavalues = data.values
+
+                    for value in datavalues:
+                        db += "\t" + " ".join(map(str, value)) + "\n"
+
+                    print(db)
+                    print(ticker)
+                    print(load[0])
+                    entities.symbol = ticker
+                    entities.CIK = load[0]
+                    entities.payload = db         
+                    entities.published_date = timezone.now()
+                    entities.save() 
+
+                except:
+
+                    print(ticker + " did not have a associated file on hand")                   
+
+            return redirect('/list/')
     else:
         form = PostForm()
     return render(request, 'entity/entity_query.html', {'form': form})
