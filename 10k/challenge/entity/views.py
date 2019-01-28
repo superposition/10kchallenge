@@ -4,6 +4,14 @@ from .models import Entity
 from .forms import PostForm
 from django.shortcuts import redirect
 
+##
+
+import requests
+import lxml
+from lxml import html
+import pandas as pd 
+
+
 # Create your views here.
 def entity_list(request):
 	entities = Entity.objects.all()
