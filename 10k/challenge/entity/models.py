@@ -1,8 +1,6 @@
 from django.db import models
-
+from django.conf import settings
 # Create your models here.
-
-from django.db import models
 
 # Create your models here.
 #Model - Entity - str
@@ -12,6 +10,7 @@ class Entity(models.Model):
 	symbol = models.CharField(max_length =200)
 	documentType = models.CharField(max_length =200)
 	CIK = models.CharField(max_length =200)
+
 
 	amendmentFlat1 = models.CharField(max_length =200)
 	amendmentFlat2 = models.CharField(max_length =200)
