@@ -25,7 +25,7 @@ pyliblzma==0.5.3
 pyOpenSSL==17.5.0
 pysqlite==1.0.1
 pyswisseph==2.0.0.post2
-PyYAML==3.12
+PyYAML==5.4
 ranger==1.8.1
 requests==2.18.4
 rpm==4.14.1
